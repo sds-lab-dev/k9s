@@ -247,6 +247,7 @@ func (a *App) bindKeys() {
 		tcell.KeyCtrlA: ui.NewSharedKeyAction("Aliases", a.aliasCmd, false),
 		tcell.KeyEnter: ui.NewKeyAction("Goto", a.gotoCmd, false),
 		tcell.KeyCtrlC: ui.NewKeyAction("Quit", a.quitCmd, false),
+		tcell.KeyCtrlZ: ui.NewKeyAction("Stop", a.stopCmd, false),
 	}))
 }
 
@@ -669,6 +670,15 @@ func (a *App) quitCmd(evt *tcell.EventKey) *tcell.EventKey {
 	}
 
 	// overwrite the default ctrl-c behavior of tview
+	return nil
+}
+
+func (a *App) stopCmd(evt *tcell.EventKey) *tcell.EventKey {
+	f := func() {
+		syscall.Kill(syscall.Getpid(), syscall.SIGTSTP)
+	}
+	a.App.Suspend(f)
+
 	return nil
 }
 
