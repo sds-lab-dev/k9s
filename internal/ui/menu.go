@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	menuIndexFmt = " [key:-:b]<%d> [fg:-:d]%s "
+	menuIndexFmt = " [key:-:b]<%d> [fg:-:b]%s "
 	maxRows      = 6
 )
 
@@ -204,7 +204,7 @@ func formatNSMenu(i int, name string, styles config.Frame) string {
 }
 
 func formatPlainMenu(h model.MenuHint, size int, styles config.Frame) string {
-	menuFmt := " [key:-:b]%-" + strconv.Itoa(size+2) + "s [fg:-:d]%s "
+	menuFmt := " [key:-:b]%-" + strconv.Itoa(size+2) + "s [fg:-:b]%s "
 	fmat := strings.Replace(menuFmt, "[key", "["+styles.Menu.KeyColor.String(), 1)
 	fmat = strings.Replace(fmat, "[fg", "["+styles.Menu.FgColor.String(), 1)
 	fmat = strings.Replace(fmat, ":bg:", ":"+styles.Title.BgColor.String()+":", -1)
